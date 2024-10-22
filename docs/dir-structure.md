@@ -20,13 +20,11 @@ tetris/
 
 ## ディレクトリ構造の詳細
 
-<br>
 
 ### ルートディレクトリ
 
 - index.html - メインのHTMLファイル
 
-<br>
 
 ### js/
 
@@ -38,13 +36,11 @@ tetris/
 - controls.js - ユーザー入力の管理（キー操作のハンドリング）。
 - score.js - スコアやレベルアップの計算。
 
-<br>
 
 ### **styles/**
 
 - style.css - ゲームのデザインやスタイルを設定するCSSファイル。
 
-<br>
 
 ### **assets/**
 
