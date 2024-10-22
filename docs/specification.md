@@ -13,7 +13,7 @@
 - 7種類のテトリミノ（I、O、T、L、J、S、Z）をランダムに生成。
     - テトリミノの形を色は下記を参考にする
     
-    ![image.png](%E3%83%86%E3%83%88%E3%83%AA%E3%82%B9%E4%BB%95%E6%A7%98%E6%9B%B8%2012778b6c5d23807bbe08e512dd25914a/image.png)
+    ![image.png](https://img.atwiki.jp/tetrismaps/attach/75/379/2020y10m27d_085257857.jpg)
     
 - テトリミノの初期状態
     - 向き：上記の画像と同じ
