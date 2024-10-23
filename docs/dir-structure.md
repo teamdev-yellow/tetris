@@ -9,7 +9,7 @@ tetris/
 		├── js/
 		│   ├── main.js
 		│   ├── game.js
-		│   ├── tetromino.js
+		│   ├── tetrimino.js
 		│   ├── playground.js
 		│   ├── display.js
 		│   ├── controls.js

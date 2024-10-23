@@ -1,0 +1,18 @@
+:root {
+    --bg-color1: #1c2021; /* グラデーション1つ目の色 */
+    --bg-color2: #0d4949; /* グラデーション2つ目の色 */
+    --title: #204b49;
+    --btn: #1ea17b;
+    --quite-btn: #ac7cda; 
+    --feature: #60caa8; /* scoreやlevel表示用 */
+    --playground-bg: #072222; /* playgroundの背景、levelとscoreの濃い色 */
+
+    /* テトリミノ */
+    --i: #03d8fa;
+    --o: #ffce14;
+    --t: #af02fb;
+    --j: #2d00fa;
+    --l: #ff6d14;
+    --s: #6aed18;
+    --z: #ff1845;
+}
