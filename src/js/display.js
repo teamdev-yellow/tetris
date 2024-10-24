@@ -57,7 +57,7 @@ function updateGame() {
     currentTetromino = createTetromino();
     currentPosition = { row: 0, col: Math.floor(cols / 2) - 1 };
     if (!canPlaceTetromino(currentTetromino, currentPosition)) {
-      alert("ゲームオーバー");
+      displayFinalScore();
       clearInterval(gameInterval);
       return;
     }
