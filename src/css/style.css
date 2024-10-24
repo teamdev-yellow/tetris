@@ -7,15 +7,6 @@
   --feature: #60caa8; /* scoreやlevel表示用 */
   --playground-bg: #072222; /* playgroundの背景、levelとscoreの濃い色 */
   --text-white: #f0f0f0; /* テキストを表示するための白色 */
-
-  /* テトリミノ */
-  --i: #03d8fa;
-  --o: #ffce14;
-  --t: #af02fb;
-  --j: #2d00fa;
-  --l: #ff6d14;
-  --s: #6aed18;
-  --z: #ff1845;
 }
 
 body {
@@ -23,6 +14,7 @@ body {
   background: linear-gradient(var(--bg-color1), var(--bg-color2));
   color: var(--text-white);
   text-align: center;
+  height: 100vh;
 }
 
 .container {
@@ -79,8 +71,15 @@ body {
   width: 300px;
   height: 600px;
   background-color: var(--playground-bg);
-  border: 2px solid var(--feature);
+  /* border: 2px solid var(--feature); */
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#playground div {
+    width: 30px;
+    height: 30px;
 }
 
 #next-blocks-section {
@@ -114,3 +113,39 @@ body {
   font-size: 40px;
   color: var(--text-white);
 }
+
+.filled {
+    background-color: #6aed18;
+}
+
+/*----------------------
+    テトリミノの配色
+------------------------*/
+.i {
+    background-color: #03d8fa !important;
+}
+
+.o {
+    background-color: #ffce14 !important;
+}
+
+.t {
+    background-color: #af02fb !important;
+}
+
+.j {
+    background-color: #2d00fa !important;
+}
+
+.l {
+    background-color: #ff6d14 !important;
+}
+
+.s {
+    background-color: #6aed18 !important;
+}
+
+.z {
+    background-color: #ff1845 !important;
+}
+

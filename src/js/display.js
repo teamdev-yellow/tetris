@@ -1,42 +1,14 @@
-const playground = document.getElementById("playground");
+export const playground = document.getElementById("playground");
 const startBtn = document.getElementById("start-btn");
 const rows = 20; // プレイグラウンドの行数
 const cols = 10; // プレイグラウンドの列数
 let gameInterval;
 let currentTetromino;
 let currentPosition;
-let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
+export let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
 
-const tetrominoes = {
-  i: [[1, 1, 1, 1]],
-  j: [
-    [1, 0, 0],
-    [1, 1, 1],
-  ],
-  l: [
-    [0, 0, 1],
-    [1, 1, 1],
-  ],
-  o: [
-    [1, 1],
-    [1, 1],
-  ],
-  s: [
-    [0, 1, 1],
-    [1, 1, 0],
-  ],
-  t: [
-    [0, 1, 0],
-    [1, 1, 1],
-  ],
-  z: [
-    [1, 1, 0],
-    [0, 1, 1],
-  ],
-};
-
-function init() {
-  startBtn.addEventListener("click", startGame);
+export function init() {
+  // startBtn.addEventListener("click", startGame);
   drawBoard();
 }
 
@@ -65,7 +37,7 @@ function updateGame() {
   drawTetromino();
 }
 
-function drawBoard() {
+export function drawBoard() {
   playground.innerHTML = ""; // ボードをクリア
   board.forEach((row) => {
     row.forEach((cell) => {
@@ -74,6 +46,12 @@ function drawBoard() {
       playground.appendChild(div);
     });
   });
+
+  for (let i=0; i<10; i++){
+    const div = document.createElement("div");
+    div.classList.add('taken', 'invisible');
+    playground.appendChild(div);
+  }
 }
 
 function drawTetromino() {
