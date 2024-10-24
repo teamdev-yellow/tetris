@@ -21,7 +21,7 @@
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(var(--bg-color1), var(--bg-color2));
-  color: var(--text-white); /* 全ての文字の色を--text-whiteに */
+  color: var(--text-white);
   text-align: center;
 }
 

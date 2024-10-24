@@ -31,7 +31,7 @@ function displayFinalScore() {
 }
 
 // 必要に応じて、スコアを更新するための関数を呼び出す
-// 例: removeFullRows()の中で使用することができます
+// 例: removeFullRows()の中で使用
 
 // 初期化関数
 function initScore() {
