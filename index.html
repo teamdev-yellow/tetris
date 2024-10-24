@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>テトリス</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="score-container">
+        <h2 id="score-title">SCORE</h2>
+        <h2 id="score">28,000</h2>
+      </div>
+      <div id="game-container">
+        <div id="level-container">
+          <h3>Level</h3>
+          <div id="level">5</div>
+        </div>
+        <div id="playground"></div>
+        <div id="next-blocks-section">
+          <div id="next-blocks-container">
+            <div class="next-block"></div>
+            <div class="next-block"></div>
+            <div class="next-block"></div>
+            <div class="next-block"></div>
+            <div class="next-block"></div>
+          </div>
+          <div id="home-icon">
+            <i class="fa-solid fa-house"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/js/main.js"></script>
+  </body>
+</html>
