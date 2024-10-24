@@ -1,18 +1,116 @@
 :root {
-    --bg-color1: #1c2021; /* グラデーション1つ目の色 */
-    --bg-color2: #0d4949; /* グラデーション2つ目の色 */
-    --title: #204b49;
-    --btn: #1ea17b;
-    --quite-btn: #ac7cda; 
-    --feature: #60caa8; /* scoreやlevel表示用 */
-    --playground-bg: #072222; /* playgroundの背景、levelとscoreの濃い色 */
+  --bg-color1: #1c2021; /* グラデーション1つ目の色 */
+  --bg-color2: #0d4949; /* グラデーション2つ目の色 */
+  --title: #204b49;
+  --btn: #1ea17b;
+  --quite-btn: #ac7cda;
+  --feature: #60caa8; /* scoreやlevel表示用 */
+  --playground-bg: #072222; /* playgroundの背景、levelとscoreの濃い色 */
+  --text-white: #f0f0f0; /* テキストを表示するための白色 */
 
-    /* テトリミノ */
-    --i: #03d8fa;
-    --o: #ffce14;
-    --t: #af02fb;
-    --j: #2d00fa;
-    --l: #ff6d14;
-    --s: #6aed18;
-    --z: #ff1845;
+  /* テトリミノ */
+  --i: #03d8fa;
+  --o: #ffce14;
+  --t: #af02fb;
+  --j: #2d00fa;
+  --l: #ff6d14;
+  --s: #6aed18;
+  --z: #ff1845;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(var(--bg-color1), var(--bg-color2));
+  color: var(--text-white);
+  text-align: center;
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+#score-container {
+  background: linear-gradient(var(--bg-color1), var(--bg-color2));
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: none;
+}
+
+#score-title {
+  font-size: 24px;
+  color: var(--text-white);
+}
+
+#score {
+  font-size: 32px;
+  background-color: var(--playground-bg);
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-white);
+  border: none;
+  display: inline-block;
+}
+
+#game-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px auto;
+  width: 600px;
+}
+
+#level-container {
+  background-color: var(--feature);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#level {
+  font-size: 36px;
+  background-color: var(--playground-bg);
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--text-white);
+}
+
+#playground {
+  width: 300px;
+  height: 600px;
+  background-color: var(--playground-bg);
+  border: 2px solid var(--feature);
+  position: relative;
+}
+
+#next-blocks-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#next-blocks-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.next-block {
+  width: 60px;
+  height: 60px;
+  background-color: var(--playground-bg);
+  border: 2px solid var(--feature);
+  margin-bottom: 10px;
+}
+
+#home-icon {
+  margin-top: 10px;
+}
+
+#home-icon i {
+  font-size: 40px;
+  color: var(--text-white);
 }
