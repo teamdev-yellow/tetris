@@ -87,6 +87,7 @@ export function draw(){
     currMino.shape.forEach(index => {
         blocks[currMino.position + index].classList.add(currMino.name);
     });
+    console.log(currMino.position);
 }
 
 export function undraw(){
@@ -104,35 +105,77 @@ export function moveDown(){
 
 export function moveLeft(){
     undraw();
-    const isAtLeftEdge = currMino.shape.some(index => (currMino.position + index) % column === 0);
-    
     // 条件1: 左壁上に位置しているか && 条件2: 左側に他のテトリミノの有無
-    if (!isAtLeftEdge && !lateralBlock('left')) currMino.position -= 1;
+    if (!isAtEdge('left', currMino.shape) && !lateralBlock('left')) currMino.position -= 1;
     draw();
 }
 
 export function moveRight(){
     undraw();
-    const isAtRightEdge = currMino.shape.some(index => (currMino.position + index) % column === 9);
-    
     // 条件1: 左壁上に位置しているか && 条件2: 左側に他のテトリミノの有無
-    if (!isAtRightEdge && !lateralBlock('right')) currMino.position += 1;
+    if (!isAtEdge('right', currMino.shape) && !lateralBlock('right')) currMino.position += 1;
     draw();
 }
 
 function rotate(){
-    console.log('rotate');
+    let prevShape = tetriminoes[currMino.name][currMino.rotation];
     undraw();
+
+    // 回転させた時のrotationとshapeを新たに設定
     currMino.rotation++;
+
     if (currMino.rotation === currMino.shape.length){
         currMino.rotation = 0;
     }
     currMino.shape = tetriminoes[currMino.name][currMino.rotation];
+
+    // 回転させた時にdivのクラスにtakenが存在したら元の状態に戻し、回転させないようにする
+    if (currMino.shape.some((index) => blocks[currMino.position + index].classList.contains('taken'))){
+        currMino.rotation--;
+        if(currMino.rotation < 0){
+            currMino.rotation = 3;
+        }
+        currMino.shape = tetriminoes[currMino.name][currMino.rotation];
+        draw();
+        return;
+    }
+
+    // 回転した時に左の壁を超えてしまう場合にpositionを調節
+    if(isAtEdge('left', prevShape)){
+        (currMino.name === 'i') ? adjustIPosition('right') : adjustPosition('right');
+    }
+
+    // 回転した時に右の壁を超えてしまう場合にpositionを調節
+    if(isAtEdge('right', prevShape)){
+        (currMino.name === 'i') ? adjustIPosition('left') : adjustPosition('left');
+    }
     draw();
 }
 
+// iとo以外のテトリミノの現在位置が右の壁側か左の壁側かによって位置を修正する
+function adjustPosition(side){
+    if (!isAtEdge(side, currMino.shape) || currMino.name === 'o' || currMino.name === 'i') {
+        return;
+    }
+    currMino.position += (side === 'left') ? -1 : 1;
+}
+
+// iのテトリミノの現在位置が右の壁側か左の壁側かによって位置を修正する
+function adjustIPosition(side){
+    if (!isAtEdge(side, currMino.shape) || currMino.name !== 'i') {
+        return;
+    }
+    let adjustment = 0;
+    if (side === 'right'){
+        adjustment = (currMino.rotation === 2) ? 2 : 1;
+    }  else {
+        adjustment = (currMino.rotation === 2) ? 1 : 2;
+    }
+    currMino.position += (side === 'left') ? -adjustment : adjustment;
+}
+
 export function freeze(){
-    if (currMino.shape.some(index => blocks[currMino.position + index + column].classList.contains('taken'))){
+    if (isBottom()){
         currMino.shape.forEach(index => blocks[currMino.position + index].classList.add('taken'));
         setCurrMino();
         setNextMino();
@@ -141,16 +184,27 @@ export function freeze(){
     }
 }
 
+// 右、もしくは左の壁に位置しているか確認
+function isAtEdge(side, shape){
+    if (side === 'right'){
+        return shape.some(index => (currMino.position + index) % column === 9);
+    } else {
+        return shape.some(index => (currMino.position + index) % column === 0);
+    }
+}
+
+// 左右にブロックがあるか確認
 function lateralBlock(side) {
     let x;
     side === 'right' ? (x = 1) : (x = -1);
-    return currMino.shape.some((index) =>
-        blocks[currMino.position + index + x].classList.contains('taken')
-    );
+    return currMino.shape.some((index) => blocks[currMino.position + index + x].classList.contains('taken'));
+}
+
+function isBottom(){
+    return (currMino.shape.some(index => blocks[currMino.position + index + column].classList.contains('taken')));
 }
 
 export function control(e){
-    console.log(e.key);
     if(e.key === 'ArrowLeft'){
         moveLeft();
     } else if (e.key === 'ArrowRight'){

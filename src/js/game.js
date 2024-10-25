@@ -11,7 +11,7 @@ function startGame(){
     setNextMino();
     setCurrMino();
     setNextMino();
-    setInterval(moveDown, 400);
+    setInterval(moveDown, 1000);
 }
 
 // startGame();
