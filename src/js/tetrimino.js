@@ -1,5 +1,5 @@
-import {playground, blocks} from './display.js';
-
+import {blocks, cols, removeFullRows} from './playground.js';
+import {gameOver} from './game.js';
 
 export let currMino = null;
 export let nextMino = {
@@ -8,61 +8,67 @@ export let nextMino = {
     rotation: 0,
     shape: []
 }
-export const column = 10;
-export let tetoriminoList = [];
+export let tetoriminoList = []; // currMinoとnextMinoの後に降ってくるテトリミノのリスト
 
 export const tetriminoes = {
     l: [
-        [column, 2, column + 1, column + 2],
-        [1, column + 1, column * 2 + 1, column * 2 + 2],
-        [column, column + 1, column + 2, column * 2],
-        [0, 1, column + 1, column * 2 + 1]
+        [cols, 2, cols + 1, cols + 2],
+        [1, cols + 1, cols * 2 + 1, cols * 2 + 2],
+        [cols, cols + 1, cols + 2, cols * 2],
+        [0, 1, cols + 1, cols * 2 + 1]
     ],
 
     t: [
-        [1, column, column + 1, column + 2],
-        [1, column + 1, column + 2, column * 2 + 1],
-        [column, column + 1, column + 2, column * 2 + 1],
-        [1, column, column + 1, column * 2 + 1]
+        [1, cols, cols + 1, cols + 2],
+        [1, cols + 1, cols + 2, cols * 2 + 1],
+        [cols, cols + 1, cols + 2, cols * 2 + 1],
+        [1, cols, cols + 1, cols * 2 + 1]
     ],
 
     s: [
-        [1, 2, column, column + 1],
-        [1, column + 1, column + 2, column * 2 + 2],
-        [column + 1, column + 2, column * 2, column * 2 + 1],
-        [0, column, column + 1, column * 2 + 1]
+        [1, 2, cols, cols + 1],
+        [1, cols + 1, cols + 2, cols * 2 + 2],
+        [cols + 1, cols + 2, cols * 2, cols * 2 + 1],
+        [0, cols, cols + 1, cols * 2 + 1]
     ],
 
     z: [
-        [0, 1, column + 1, column + 2],
-        [2, column + 1, column + 2, column * 2 + 1],
-        [column, column + 1, column * 2 + 1, column * 2 + 2],
-        [1, column, column + 1, column * 2]
+        [0, 1, cols + 1, cols + 2],
+        [2, cols + 1, cols + 2, cols * 2 + 1],
+        [cols, cols + 1, cols * 2 + 1, cols * 2 + 2],
+        [1, cols, cols + 1, cols * 2]
     ],
 
     j: [
-        [0, column, column + 1, column + 2],
-        [1, 2, column + 1, column * 2 + 1],
-        [column, column + 1, column + 2, column * 2 + 2],
-        [1, column + 1, column * 2, column * 2 + 1]
+        [0, cols, cols + 1, cols + 2],
+        [1, 2, cols + 1, cols * 2 + 1],
+        [cols, cols + 1, cols + 2, cols * 2 + 2],
+        [1, cols + 1, cols * 2, cols * 2 + 1]
     ],
 
     i: [
-        [column, column + 1, column + 2, column + 3],
-        [2, column + 2, column * 2 + 2, column * 3 + 2],
-        [column * 2, column * 2 + 1, column * 2 + 2, column * 2 + 3],
-        [1, column + 1, column * 2 + 1, column * 3 + 1]
+        [cols, cols + 1, cols + 2, cols + 3],
+        [2, cols + 2, cols * 2 + 2, cols * 3 + 2],
+        [cols * 2, cols * 2 + 1, cols * 2 + 2, cols * 2 + 3],
+        [1, cols + 1, cols * 2 + 1, cols * 3 + 1]
     ],
 
     o: [
-        [0, 1, column,  column + 1],
-        [0, 1, column, column + 1],
-        [0, 1, column, column + 1],
-        [0, 1, column, column + 1]
+        [0, 1, cols,  cols + 1],
+        [0, 1, cols, cols + 1],
+        [0, 1, cols, cols + 1],
+        [0, 1, cols, cols + 1]
     ]
 }
 
-export function createTetromino(){
+export function resetTetrimino(){
+    currMino = null;
+    nextMino.name = "";
+    nextMino.shape = [];
+    tetoriminoList = [];
+}
+
+export function createTetrimino(){
     let newList = Object.keys(tetriminoes).sort(() => Math.random() - 0.5);
     tetoriminoList = newList.concat(tetoriminoList);
 }
@@ -77,7 +83,7 @@ export function setNextMino(){
         nextMino.shape = tetriminoes[nextMino.name][nextMino.rotation];
 
         if (tetoriminoList.length < 6){
-            createTetromino();
+            createTetrimino();
         }
     }
 }
@@ -86,20 +92,22 @@ export function draw(){
     currMino.shape.forEach(index => {
         blocks[currMino.position + index].classList.add(currMino.name);
     });
-    console.log(currMino.position);
 }
 
 export function undraw(){
+    console.log('still moving');
     currMino.shape.forEach(index => {
         blocks[currMino.position + index].classList.remove(currMino.name);
     });
 }
 
-export function moveDown(){
+export function run(){
     undraw();
-    currMino.position += column;
+    currMino.position += cols;
     draw();
     freeze();
+    removeFullRows();
+    gameOver();
 }
 
 export function moveLeft(){
@@ -186,9 +194,9 @@ export function freeze(){
 // 右、もしくは左の壁に位置しているか確認
 function isAtEdge(side, shape){
     if (side === 'right'){
-        return shape.some(index => (currMino.position + index) % column === 9);
+        return shape.some(index => (currMino.position + index) % cols === 9);
     } else {
-        return shape.some(index => (currMino.position + index) % column === 0);
+        return shape.some(index => (currMino.position + index) % cols === 0);
     }
 }
 
@@ -200,7 +208,7 @@ function lateralBlock(side) {
 }
 
 function isBottom(){
-    return (currMino.shape.some(index => blocks[currMino.position + index + column].classList.contains('taken')));
+    return (currMino.shape.some(index => blocks[currMino.position + index + cols].classList.contains('taken')));
 }
 
 export function control(e){
@@ -211,7 +219,7 @@ export function control(e){
     } else if (e.key === 'ArrowUp'){
         rotate();
     } else if (e.key === 'ArrowDown'){
-        moveDown();
+        run();
     }
 }
 
