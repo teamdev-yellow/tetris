@@ -14,7 +14,7 @@ function resetScore() {
 }
 
 // スコアを更新する関数
-function updateScore(points) {
+export function updateScore(points) {
   score += points; // スコアを更新
   scoreDisplay.textContent = score; // 新しいスコアを画面に表示
 
@@ -34,7 +34,7 @@ function displayFinalScore() {
 // 例: removeFullRows()の中で使用
 
 // 初期化関数
-function initScore() {
+export function initScore() {
   resetScore(); // スコアをリセット
 }
 
