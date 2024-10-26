@@ -1,4 +1,4 @@
-import {playground} from './display.js';
+import {playground, blocks} from './display.js';
 
 
 export let currMino = null;
@@ -10,7 +10,6 @@ export let nextMino = {
 }
 export const column = 10;
 export let tetoriminoList = [];
-let blocks = Array.from(playground.querySelectorAll('div'));
 
 export const tetriminoes = {
     l: [
@@ -162,3 +161,4 @@ export function control(e){
     }
 }
 
+// ハードドロップ

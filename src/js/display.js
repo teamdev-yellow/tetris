@@ -5,11 +5,23 @@ const cols = 10; // プレイグラウンドの列数
 let gameInterval;
 let currentTetromino;
 let currentPosition;
-export let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
+let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
+export let blocks;
 
-export function init() {
+export function showGameScreen(){
+  const mainMenu = document.getElementById('main-menu');
+  const gameScreen = document.getElementById('game-screen');
+
+  startBtn.addEventListener('click', () => {
+      mainMenu.classList.add('hide');
+      gameScreen.classList.remove('hide');
+  });
+}
+
+export function generateBoard() {
   // startBtn.addEventListener("click", startGame);
   drawBoard();
+  initBlocks();
 }
 
 function startGame() {
@@ -52,6 +64,10 @@ export function drawBoard() {
     div.classList.add('taken', 'invisible');
     playground.appendChild(div);
   }
+}
+
+export function initBlocks() {
+    blocks = Array.from(playground.querySelectorAll('div'));
 }
 
 function drawTetromino() {
@@ -151,5 +167,3 @@ function createTetromino() {
     tetrominoKeys[Math.floor(Math.random() * tetrominoKeys.length)];
   return { shape: tetrominoes[randomKey] };
 }
-
-init();
