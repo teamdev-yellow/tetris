@@ -16,6 +16,7 @@ export function init(){
     setNextMino();
     setCurrMino();
     setNextMino();
+    setInterval(moveDown, 1000);
 }
 
 export function startGame(){
