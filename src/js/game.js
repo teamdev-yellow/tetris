@@ -1,30 +1,17 @@
-import { showGameScreen, showMainScreen } from "./display.js";
+import { showGameScreen, showMainScreen, showGameOverScreen} from "./display.js";
 import {
   currMino,
-  nextMino,
-  tetoriminoList,
-  tetriminoes,
   createTetrimino,
   setCurrMino,
   setNextMino,
-  draw,
-  undraw,
   run,
-  moveLeft,
-  moveRight,
-  control,
   resetTetrimino,
 } from "./tetrimino.js";
-import { setHomeBtnListner, setStartBtnListner } from "./controls.js";
+import { setHomeBtnListner, setStartBtnListner, setQuitBtnListener, setReplayBtnListener, initUserInput } from "./controls.js";
 import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
-import { initScore, getFallSpeed } from "./score.js";
+import { initScore, getFallSpeed, score, level } from "./score.js";
 
 let timerId;
-
-// (仮のイベントリスナー)
-document.addEventListener("DOMContentLoaded", () => {
-  document.addEventListener("keyup", control);
-});
 
 // (仮のゲーム開始関数)
 export function init() {
@@ -39,8 +26,11 @@ export function init() {
 export function startGame() {
   init();
   showGameScreen();
+  initUserInput(true);
   setHomeBtnListner(true);
   setStartBtnListner(false);
+  setReplayBtnListener(false);
+  setQuitBtnListener(false);
   initScore();
   startTimer();
 }
@@ -50,27 +40,29 @@ function startTimer() {
   timerId = setInterval(run, getFallSpeed());
 }
 
-// quit game
-function quit() {
-  restore();
-  cleanPlayGround();
-  setHomeBtnListner(false);
-  setStartBtnListner(true);
-  //音楽の停止
+function quit(){
+    restore();
+    cleanPlayGround();
+    initUserInput(false);
+    setHomeBtnListner(false);
+    setStartBtnListner(true);
+    setReplayBtnListener(false);
+    setQuitBtnListener(false);
+    //音楽の停止
 }
 
 function restore() {
   clearInterval(timerId);
   timerId = null;
   resetTetrimino();
-  // スコアの初期化
   initScore();
 }
 
-// back menu
 export function backMenu() {
   quit();
   showMainScreen();
+  setReplayBtnListener(false);
+  setQuitBtnListener(false);
 }
 
 export function gameOver() {
@@ -80,13 +72,12 @@ export function gameOver() {
     )
   ) {
     clearInterval(timerId);
+    showGameOverScreen(score, level);
+    setReplayBtnListener(true);
+    setQuitBtnListener(true);
   }
 }
 
-// pause game
-
-// resume game
-
-// update score
-
-// increase speed
+export function pause(){
+    clearInterval(timerId);
+}

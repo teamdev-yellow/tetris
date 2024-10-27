@@ -1,5 +1,5 @@
-let score = 0;
-let level = 1;
+export let score = 0;
+export let level = 1;
 let linesCleared = 0;
 let comboCount = 0;
 let lastLinesCleared = 0;

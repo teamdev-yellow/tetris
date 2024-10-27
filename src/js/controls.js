@@ -1,18 +1,62 @@
-import { backMenu, startGame, init } from "./game.js";
+import { backMenu, startGame } from "./game.js";
+import {rotate, moveLeft, moveRight, run, hardDrop} from './tetrimino.js';
 
 const startBtn = document.getElementById("start-btn");
 const homeBtn = document.getElementById("home-icon");
+const replayBtn = document.getElementById("replay-btn");
+const quitBtn = document.getElementById("quit-btn");
 
 export function setHomeBtnListner(bool) {
-  homeBtn.removeEventListener("click", backMenu); // 既存リスナーを一旦解除
+  homeBtn.removeEventListener("click", backMenu);
   if (bool) {
     homeBtn.addEventListener("click", backMenu);
   }
 }
 
 export function setStartBtnListner(bool) {
-  startBtn.removeEventListener("click", startGame); // 既存リスナーを一旦解除
+  startBtn.removeEventListener("click", startGame);
   if (bool) {
     startBtn.addEventListener("click", startGame);
   }
 }
+
+export function setReplayBtnListener(bool) {
+    replayBtn.removeEventListener('click', startGame);
+    if (bool) {
+        replayBtn.addEventListener('click', () => {
+            startGame();
+        });
+    }
+}
+
+export function setQuitBtnListener(bool) {
+    quitBtn.removeEventListener('click', backMenu);
+    if (bool) {
+        quitBtn.addEventListener('click', () => {
+            backMenu();
+        });
+    }
+}
+
+export function initUserInput(bool){
+    document.removeEventListener('keydown', control);
+    if(bool){
+        document.addEventListener('keydown', control);
+    }
+    
+}
+
+function control(e){
+    if(e.key === 'ArrowLeft'){
+        moveLeft();
+    } else if (e.key === 'ArrowRight'){
+        moveRight();
+    } else if (e.key === 'ArrowUp'){
+        rotate();
+    } else if (e.key === 'ArrowDown'){
+        run();
+    } else if (e.key === ' '){
+        hardDrop();
+    }
+}
+
