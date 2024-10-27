@@ -21,11 +21,6 @@ import { initScore, getFallSpeed } from "./score.js";
 
 let timerId;
 
-// (仮のイベントリスナー)
-document.addEventListener("DOMContentLoaded", () => {
-  document.addEventListener("keyup", control);
-});
-
 // (仮のゲーム開始関数)
 export function init() {
   setStartBtnListner(true);
@@ -39,6 +34,7 @@ export function init() {
 export function startGame() {
   init();
   showGameScreen();
+    initUserInput(true);
   setHomeBtnListner(true);
   setStartBtnListner(false);
   initScore();
@@ -51,12 +47,13 @@ function startTimer() {
 }
 
 // quit game
-function quit() {
-  restore();
-  cleanPlayGround();
-  setHomeBtnListner(false);
-  setStartBtnListner(true);
-  //音楽の停止
+function quit(){
+    restore();
+    cleanPlayGround();
+    initUserInput(false);
+    setHomeBtnListner(false);
+    setStartBtnListner(true);
+    //音楽の停止
 }
 
 function restore() {
@@ -83,7 +80,9 @@ export function gameOver() {
   }
 }
 
-// pause game
+export function pause(){
+    clearInterval(timerId);
+}
 
 // resume game
 

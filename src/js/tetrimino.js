@@ -105,7 +105,9 @@ export function run(){
     undraw();
     currMino.position += cols;
     draw();
-    freeze();
+    if(freeze()){
+        dropNextTetrimino();
+    }
     removeFullRows();
     gameOver();
 }
@@ -124,7 +126,7 @@ export function moveRight(){
     draw();
 }
 
-function rotate(){
+export function rotate(){
     let prevShape = tetriminoes[currMino.name][currMino.rotation];
     undraw();
 
@@ -159,6 +161,17 @@ function rotate(){
     draw();
 }
 
+
+export function hardDrop(){
+    undraw();
+    while (canMoveDown()) {
+        currMino.position += cols;
+    }
+    freeze();
+    draw();
+    dropNextTetrimino();
+}
+
 // iとo以外のテトリミノの現在位置が右の壁側か左の壁側かによって位置を修正する
 function adjustPosition(side){
     if (!isAtEdge(side, currMino.shape) || currMino.name === 'o' || currMino.name === 'i') {
@@ -182,13 +195,18 @@ function adjustIPosition(side){
 }
 
 export function freeze(){
-    if (isBottom()){
+    if (!canMoveDown()){
         currMino.shape.forEach(index => blocks[currMino.position + index].classList.add('taken'));
-        setCurrMino();
-        setNextMino();
-        draw();
-        // displayNextShape();
+        return true;
     }
+    return false;
+}
+
+function dropNextTetrimino(){
+    setCurrMino();
+    setNextMino();
+    draw();
+    // displayNextShape();
 }
 
 // 右、もしくは左の壁に位置しているか確認
@@ -207,20 +225,6 @@ function lateralBlock(side) {
     return currMino.shape.some((index) => blocks[currMino.position + index + x].classList.contains('taken'));
 }
 
-function isBottom(){
-    return (currMino.shape.some(index => blocks[currMino.position + index + cols].classList.contains('taken')));
+function canMoveDown(){
+    return !(currMino.shape.some(index => blocks[currMino.position + index + cols].classList.contains('taken')));
 }
-
-export function control(e){
-    if(e.key === 'ArrowLeft'){
-        moveLeft();
-    } else if (e.key === 'ArrowRight'){
-        moveRight();
-    } else if (e.key === 'ArrowUp'){
-        rotate();
-    } else if (e.key === 'ArrowDown'){
-        run();
-    }
-}
-
-// ハードドロップ

@@ -7,6 +7,12 @@
   --feature: #60caa8; /* scoreやlevel表示用 */
   --playground-bg: #072222; /* playgroundの背景、levelとscoreの濃い色 */
   --text-white: #f0f0f0; /* テキストを表示するための白色 */
+
+  --columns: 10;
+  --rows: 20;
+  --block-width: 25px;
+  --border-width: 1px;
+  --playground-border-width: 2px;
 }
 
 body {
@@ -55,8 +61,10 @@ body {
 }
 
 #game-screen {
-  margin: 0px auto;
-  max-width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 #score-container {
@@ -72,7 +80,8 @@ body {
 }
 
 #score {
-  font-size: 18px;
+  margin: 0;
+  font-size: 32px;
   background-color: var(--playground-bg);
   padding: 4px 6px;
   border-radius: 8px;
@@ -104,18 +113,25 @@ body {
 }
 
 #playground {
-  width: 300px;
-  height: 600px;
+  width: calc(var(--columns) * (var(--block-width) + (var(--border-width) * 2)) + var(--playground-border-width));
+  height: calc(var(--rows) * (var(--block-width) + (var(--border-width) * 2)) + var(--playground-border-width));
   background-color: var(--playground-bg);
-  /* border: 2px solid var(--feature); */
+  border: var(--playground-border-width) solid var(--feature);
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  box-sizing: content-box;
+  flex-shrink: 0;
+  transition: border 0.2s;
 }
 
-#playground div {
-  width: 30px;
-  height: 30px;
+#playground .cell {
+    width: var(--block-width);
+    height: var(--block-width);
+    border: var(--border-width) solid rgba(128, 128, 128, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #next-blocks-section {
