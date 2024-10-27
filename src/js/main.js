@@ -1,5 +1,3 @@
-import {init} from './game.js';
+import { init } from "./game.js";
 
 init();
-
-
