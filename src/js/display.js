@@ -4,13 +4,16 @@ const gameOverScreen = document.getElementById("game-over");
 
 export function showMainScreen() {
   gameScreen.classList.add("hide");
+  gameOverScreen.style.display = "";
   gameOverScreen.classList.add("hide");
   mainMenu.classList.remove("hide");
 }
 
 export function showGameScreen() {
-  gameScreen.classList.remove("hide");
+  gameOverScreen.style.display = "";
+  gameOverScreen.classList.add("hide");
   mainMenu.classList.add("hide");
+  gameScreen.classList.remove("hide");
 }
 
 export function showGameOverScreen(score, level) {

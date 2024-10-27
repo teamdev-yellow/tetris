@@ -3,6 +3,8 @@ import {rotate, moveLeft, moveRight, run, hardDrop} from './tetrimino.js';
 
 const startBtn = document.getElementById("start-btn");
 const homeBtn = document.getElementById("home-icon");
+const replayBtn = document.getElementById("replay-btn");
+const quitBtn = document.getElementById("quit-btn");
 
 export function setHomeBtnListner(bool) {
   homeBtn.removeEventListener("click", backMenu);
@@ -16,6 +18,24 @@ export function setStartBtnListner(bool) {
   if (bool) {
     startBtn.addEventListener("click", startGame);
   }
+}
+
+export function setReplayBtnListener(bool) {
+    replayBtn.removeEventListener('click', startGame);
+    if (bool) {
+        replayBtn.addEventListener('click', () => {
+            startGame();
+        });
+    }
+}
+
+export function setQuitBtnListener(bool) {
+    quitBtn.removeEventListener('click', backMenu);
+    if (bool) {
+        quitBtn.addEventListener('click', () => {
+            backMenu();
+        });
+    }
 }
 
 export function initUserInput(bool){

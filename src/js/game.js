@@ -7,7 +7,7 @@ import {
   run,
   resetTetrimino,
 } from "./tetrimino.js";
-import { setHomeBtnListner, setStartBtnListner, initUserInput } from "./controls.js";
+import { setHomeBtnListner, setStartBtnListner, setQuitBtnListener, setReplayBtnListener, initUserInput } from "./controls.js";
 import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
 import { initScore, getFallSpeed, score, level } from "./score.js";
 
@@ -29,6 +29,8 @@ export function startGame() {
   initUserInput(true);
   setHomeBtnListner(true);
   setStartBtnListner(false);
+  setReplayBtnListener(false);
+  setQuitBtnListener(false);
   initScore();
   startTimer();
 }
@@ -44,6 +46,8 @@ function quit(){
     initUserInput(false);
     setHomeBtnListner(false);
     setStartBtnListner(true);
+    setReplayBtnListener(false);
+    setQuitBtnListener(false);
     //音楽の停止
 }
 
@@ -57,6 +61,8 @@ function restore() {
 export function backMenu() {
   quit();
   showMainScreen();
+  setReplayBtnListener(false);
+  setQuitBtnListener(false);
 }
 
 export function gameOver() {
@@ -67,6 +73,8 @@ export function gameOver() {
   ) {
     clearInterval(timerId);
     showGameOverScreen(score, level);
+    setReplayBtnListener(true);
+    setQuitBtnListener(true);
   }
 }
 
