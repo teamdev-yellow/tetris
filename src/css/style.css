@@ -72,6 +72,7 @@ body {
   padding: 10px;
   border-radius: 8px;
   border: none;
+  margin-bottom: 20px;
 }
 
 #score-title {
@@ -172,6 +173,36 @@ body {
 
 .hide {
   display: none;
+}
+
+#game-over {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+#game-over h2 {
+  color: var(--text-white);
+}
+
+#game-over button {
+  margin: 10px 0;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--btn);
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#game-over button:hover {
+  background-color: var(--title);
 }
 
 /*----------------------

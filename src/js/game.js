@@ -1,23 +1,15 @@
-import { showGameScreen, showMainScreen } from "./display.js";
+import { showGameScreen, showMainScreen, showGameOverScreen} from "./display.js";
 import {
   currMino,
-  nextMino,
-  tetoriminoList,
-  tetriminoes,
   createTetrimino,
   setCurrMino,
   setNextMino,
-  draw,
-  undraw,
   run,
-  moveLeft,
-  moveRight,
-  control,
   resetTetrimino,
 } from "./tetrimino.js";
-import { setHomeBtnListner, setStartBtnListner } from "./controls.js";
+import { setHomeBtnListner, setStartBtnListner, initUserInput } from "./controls.js";
 import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
-import { initScore, getFallSpeed } from "./score.js";
+import { initScore, getFallSpeed, score, level } from "./score.js";
 
 let timerId;
 
@@ -34,7 +26,7 @@ export function init() {
 export function startGame() {
   init();
   showGameScreen();
-    initUserInput(true);
+  initUserInput(true);
   setHomeBtnListner(true);
   setStartBtnListner(false);
   initScore();
@@ -46,7 +38,6 @@ function startTimer() {
   timerId = setInterval(run, getFallSpeed());
 }
 
-// quit game
 function quit(){
     restore();
     cleanPlayGround();
@@ -60,11 +51,9 @@ function restore() {
   clearInterval(timerId);
   timerId = null;
   resetTetrimino();
-  // スコアの初期化
   initScore();
 }
 
-// back menu
 export function backMenu() {
   quit();
   showMainScreen();
@@ -77,15 +66,10 @@ export function gameOver() {
     )
   ) {
     clearInterval(timerId);
+    showGameOverScreen(score, level);
   }
 }
 
 export function pause(){
     clearInterval(timerId);
 }
-
-// resume game
-
-// update score
-
-// increase speed
