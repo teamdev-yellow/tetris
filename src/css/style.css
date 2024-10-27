@@ -16,6 +16,7 @@ body {
   text-align: center;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 #main-menu {
@@ -45,16 +46,16 @@ body {
   font-style: normal;
   text-decoration: none;
   text-align: center;
-  border: .5px solid var(--btn);
+  border: 0.5px solid var(--btn);
 }
 
 #start-btn:hover {
   background-color: var(--title);
-  border: .5px solid var(--btn);
+  border: 0.5px solid var(--btn);
 }
 
 #game-screen {
-  margin: 20px auto;
+  margin: 0px auto;
   max-width: 600px;
 }
 
@@ -62,19 +63,18 @@ body {
   background: linear-gradient(var(--bg-color1), var(--bg-color2));
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 10px;
   border: none;
 }
 
 #score-title {
-  font-size: 24px;
+  font-size: 12px;
   color: var(--text-white);
 }
 
 #score {
-  font-size: 32px;
+  font-size: 18px;
   background-color: var(--playground-bg);
-  padding: 8px 12px;
+  padding: 4px 6px;
   border-radius: 8px;
   color: var(--text-white);
   border: none;
@@ -85,20 +85,20 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 20px auto;
+  margin: 0px auto;
   width: 600px;
 }
 
 #level-container {
   background-color: var(--feature);
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
 }
 
 #level {
-  font-size: 36px;
+  font-size: 18px;
   background-color: var(--playground-bg);
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 8px;
   color: var(--text-white);
 }
@@ -114,8 +114,8 @@ body {
 }
 
 #playground div {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 #next-blocks-section {
@@ -151,42 +151,40 @@ body {
 }
 
 .filled {
-    background-color: #6aed18;
+  background-color: #6aed18;
 }
 
 .hide {
   display: none;
 }
 
-
 /*----------------------
     テトリミノの配色
 ------------------------*/
 .i {
-    background-color: #03d8fa !important;
+  background-color: #03d8fa !important;
 }
 
 .o {
-    background-color: #ffce14 !important;
+  background-color: #ffce14 !important;
 }
 
 .t {
-    background-color: #af02fb !important;
+  background-color: #af02fb !important;
 }
 
 .j {
-    background-color: #2d00fa !important;
+  background-color: #2d00fa !important;
 }
 
 .l {
-    background-color: #ff6d14 !important;
+  background-color: #ff6d14 !important;
 }
 
 .s {
-    background-color: #6aed18 !important;
+  background-color: #6aed18 !important;
 }
 
 .z {
-    background-color: #ff1845 !important;
+  background-color: #ff1845 !important;
 }
-
