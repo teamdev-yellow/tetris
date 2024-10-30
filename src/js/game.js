@@ -10,11 +10,12 @@ import {
 import { setHomeBtnListner, setStartBtnListner, setQuitBtnListener, setReplayBtnListener, initUserInput } from "./controls.js";
 import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
 import { initScore, getFallSpeed, score, level } from "./score.js";
+import { loadSounds, playAudio, stopAudio, sounds, soundsLoaded } from "./audio.js";
 
 let timerId;
 
-// (仮のゲーム開始関数)
-export function init() {
+export async function init() {
+  await loadSounds();
   setStartBtnListner(true);
   generateBoard();
   createTetrimino();
@@ -23,9 +24,15 @@ export function init() {
   setNextMino();
 }
 
-export function startGame() {
-  init();
+export async function startGame() {
+  await init();  // 確実にサウンドがロードされた後に続行
+  if (!soundsLoaded) {
+    console.error("Sounds not loaded. Game cannot start.");
+    return;
+  }
+
   showGameScreen();
+  playAudio(sounds.game);
   initUserInput(true);
   setHomeBtnListner(true);
   setStartBtnListner(false);
@@ -48,7 +55,7 @@ function quit(){
     setStartBtnListner(true);
     setReplayBtnListener(false);
     setQuitBtnListener(false);
-    //音楽の停止
+    stopAudio(sounds.gameover);
 }
 
 function restore() {
@@ -73,8 +80,13 @@ export function gameOver() {
   ) {
     clearInterval(timerId);
     showGameOverScreen(score, level);
+    stopAudio(sounds.game);
+    playAudio(sounds.gameover);
     setReplayBtnListener(true);
     setQuitBtnListener(true);
+    initUserInput(false);
+    restore();
+    cleanPlayGround();
   }
 }
 

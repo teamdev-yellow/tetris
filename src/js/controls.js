@@ -1,5 +1,6 @@
 import { backMenu, startGame } from "./game.js";
-import {rotate, moveLeft, moveRight, run, hardDrop} from './tetrimino.js';
+import { rotate, moveLeft, moveRight, run, hardDrop } from './tetrimino.js';
+import { sounds, playAudio, soundsLoaded } from './audio.js';
 
 const startBtn = document.getElementById("start-btn");
 const homeBtn = document.getElementById("home-icon");
@@ -15,15 +16,18 @@ export function setHomeBtnListner(bool) {
 
 export function setStartBtnListner(bool) {
   startBtn.removeEventListener("click", startGame);
-  if (bool) {
-    startBtn.addEventListener("click", startGame);
-  }
-}
+  if (bool && soundsLoaded) {
+    startBtn.addEventListener("click", () => {
+        startGame();
+        playAudio(sounds.click);
+    });
+  }}
 
 export function setReplayBtnListener(bool) {
     replayBtn.removeEventListener('click', startGame);
     if (bool) {
         replayBtn.addEventListener('click', () => {
+            console.log('replay');
             startGame();
         });
     }
