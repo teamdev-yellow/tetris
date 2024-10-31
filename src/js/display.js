@@ -1,3 +1,6 @@
+import { nextBlocks } from "./playground.js";
+import { tetriminoes, currMino } from "./tetrimino.js";
+
 const mainMenu = document.getElementById("main-menu");
 const gameScreen = document.getElementById("game-screen");
 const gameOverScreen = document.getElementById("game-over");
@@ -24,3 +27,21 @@ export function showGameOverScreen(score, level) {
   document.getElementById("final-score").innerText = score;
   document.getElementById("final-level").innerText = level;
 }
+
+export function drawNextMino(nextMino) {
+  // 次のミノの表示をクリア
+  currMino.shape.forEach(index => {
+    if(index > 3) index -= 6;
+    if (currMino.name == "o") index += 1;
+    index += 4;
+    nextBlocks[index].classList.remove(currMino.name);
+  });
+
+  nextMino.shape.forEach(index => {
+    if(index > 3) index -= 6;
+    if (nextMino.name == "o") index += 1;
+    index += 4;
+    nextBlocks[index].classList.add(nextMino.name);
+  });
+}
+

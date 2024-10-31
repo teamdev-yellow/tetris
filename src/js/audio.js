@@ -1,8 +1,8 @@
 export const sounds = {
-  click: new Audio("src/assets/audio/click.mp3"),
-  gameover: new Audio("src/assets/audio/game_over.mp3"),
-  game: new Audio("src/assets/audio/game.mp3"),
-  line: new Audio("src/assets/audio/line.mp3"),
+    click: new Audio("src/assets/audio/click.mp3"),
+    gameover: new Audio("src/assets/audio/game_over.mp3"),
+    game: new Audio("src/assets/audio/game.mp3"),
+    line: new Audio("src/assets/audio/line.mp3")
 };
 
 export let soundsLoaded = false;

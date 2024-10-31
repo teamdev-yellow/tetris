@@ -1,13 +1,22 @@
 import { updateScore } from "./score.js";
 import { playAudio, sounds } from "./audio.js";
+
 const rows = 20; // プレイグラウンドの行数
 export const cols = 10; // プレイグラウンドの列数
-let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
-export const playground = document.getElementById("playground");
-export let blocks;
+const miniRows = 4; // nextMino表示ブロックの行数
+export const miniCols = 4; // nextMino表示ブロックの列数
 
-export function generateBoard() {
+let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
+let nextBlockBoard = Array.from({ length: miniRows }, () => Array(miniCols).fill(0)); // nextblockの初期化
+export const playground = document.getElementById("playground");
+const nextBlock = document.getElementById("next-block");
+export let blocks;
+export let nextBlocks;
+
+
+export function generateBoards() {
   drawBoard();
+  drawMiniBoard();
   initBlocks();
 }
 
@@ -28,8 +37,23 @@ export function drawBoard() {
   }
 }
 
+export function drawMiniBoard(){
+  // let count = 0;
+  nextBlock.innerHTML = "";
+  nextBlockBoard.forEach((row) => {
+    row.forEach((cell) => {
+      const div = document.createElement("div");
+      // div.innerHTML = count;
+      // count += 1;
+      div.className = "cell" + (cell ? " filled" : "");
+      nextBlock.appendChild(div);
+    });
+  });
+}
+
 export function initBlocks() {
   blocks = Array.from(playground.querySelectorAll("div"));
+  nextBlocks = Array.from(nextBlock.querySelectorAll("div"));
 }
 
 export function cleanPlayGround() {

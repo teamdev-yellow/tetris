@@ -1,31 +1,50 @@
-import { showGameScreen, showMainScreen, showGameOverScreen} from "./display.js";
+import {
+  showGameScreen,
+  showMainScreen,
+  showGameOverScreen,
+  drawNextMino,
+} from "./display.js";
 import {
   currMino,
+  nextMino,
   createTetrimino,
   setCurrMino,
   setNextMino,
   run,
   resetTetrimino,
 } from "./tetrimino.js";
-import { setHomeBtnListner, setStartBtnListner, setQuitBtnListener, setReplayBtnListener, initUserInput } from "./controls.js";
-import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
+import {
+  setHomeBtnListner,
+  setStartBtnListner,
+  setQuitBtnListener,
+  setReplayBtnListener,
+  initUserInput,
+} from "./controls.js";
+import { generateBoards, cleanPlayGround, blocks } from "./playground.js";
 import { initScore, getFallSpeed, score, level } from "./score.js";
-import { loadSounds, playAudio, stopAudio, sounds, soundsLoaded } from "./audio.js";
+import {
+  loadSounds,
+  playAudio,
+  stopAudio,
+  sounds,
+  soundsLoaded,
+} from "./audio.js";
 
 let timerId;
 
 export async function init() {
   await loadSounds();
   setStartBtnListner(true);
-  generateBoard();
+  generateBoards();
   createTetrimino();
   setNextMino();
   setCurrMino();
   setNextMino();
+  drawNextMino(nextMino);
 }
 
 export async function startGame() {
-  await init();  // 確実にサウンドがロードされた後に続行
+  await init(); // 確実にサウンドがロードされた後に続行
   if (!soundsLoaded) {
     console.error("Sounds not loaded. Game cannot start.");
     return;
@@ -40,6 +59,9 @@ export async function startGame() {
   setQuitBtnListener(false);
   initScore();
   startTimer();
+
+  // 次のミノを生成し、表示
+  // const nextMino = createTetrimino();
 }
 
 function startTimer() {
@@ -47,15 +69,15 @@ function startTimer() {
   timerId = setInterval(run, getFallSpeed());
 }
 
-function quit(){
-    restore();
-    cleanPlayGround();
-    initUserInput(false);
-    setHomeBtnListner(false);
-    setStartBtnListner(true);
-    setReplayBtnListener(false);
-    setQuitBtnListener(false);
-    stopAudio(sounds.gameover);
+function quit() {
+  restore();
+  cleanPlayGround();
+  initUserInput(false);
+  setHomeBtnListner(false);
+  setStartBtnListner(true);
+  setReplayBtnListener(false);
+  setQuitBtnListener(false);
+  stopAudio(sounds.gameover);
 }
 
 function restore() {
@@ -90,6 +112,6 @@ export function gameOver() {
   }
 }
 
-export function pause(){
-    clearInterval(timerId);
+export function pause() {
+  clearInterval(timerId);
 }
