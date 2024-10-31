@@ -1,4 +1,5 @@
 import { updateScore } from "./score.js";
+import { playAudio, sounds } from "./audio.js";
 const rows = 20; // プレイグラウンドの行数
 export const cols = 10; // プレイグラウンドの列数
 let board = Array.from({ length: rows }, () => Array(cols).fill(0)); // ゲームボードの初期化
@@ -71,5 +72,6 @@ export function removeFullRows() {
   // スコアとレベル更新
   if (linesCleared > 0) {
     updateScore(linesCleared);
+    playAudio(sounds.line);
   }
 }
