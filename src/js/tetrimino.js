@@ -1,5 +1,6 @@
-import {blocks, cols, removeFullRows} from './playground.js';
-import {gameOver} from './game.js';
+import { blocks, cols, removeFullRows } from './playground.js';
+import { gameOver } from './game.js';
+import { drawNextMino } from './display.js';
 
 export let currMino = null;
 export let nextMino = {
@@ -12,7 +13,7 @@ export let tetoriminoList = []; // currMinoとnextMinoの後に降ってくる�
 
 export const tetriminoes = {
     l: [
-        [cols, 2, cols + 1, cols + 2],
+        [2, cols, cols + 1, cols + 2],
         [1, cols + 1, cols * 2 + 1, cols * 2 + 2],
         [cols, cols + 1, cols + 2, cols * 2],
         [0, 1, cols + 1, cols * 2 + 1]
@@ -95,7 +96,6 @@ export function draw(){
 }
 
 export function undraw(){
-    console.log('still moving');
     currMino.shape.forEach(index => {
         blocks[currMino.position + index].classList.remove(currMino.name);
     });
@@ -104,11 +104,11 @@ export function undraw(){
 export function run(){
     undraw();
     currMino.position += cols;
-    draw();
     if(freeze()){
         dropNextTetrimino();
     }
     removeFullRows();
+    draw();
     gameOver();
 }
 
@@ -161,7 +161,6 @@ export function rotate(){
     draw();
 }
 
-
 export function hardDrop(){
     undraw();
     while (canMoveDown()) {
@@ -205,8 +204,8 @@ export function freeze(){
 function dropNextTetrimino(){
     setCurrMino();
     setNextMino();
+    drawNextMino(nextMino);
     draw();
-    // displayNextShape();
 }
 
 // 右、もしくは左の壁に位置しているか確認

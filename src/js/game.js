@@ -6,6 +6,7 @@ import {
 } from "./display.js";
 import {
   currMino,
+  nextMino,
   createTetrimino,
   setCurrMino,
   setNextMino,
@@ -19,7 +20,7 @@ import {
   setReplayBtnListener,
   initUserInput,
 } from "./controls.js";
-import { generateBoard, cleanPlayGround, blocks } from "./playground.js";
+import { generateBoards, cleanPlayGround, blocks } from "./playground.js";
 import { initScore, getFallSpeed, score, level } from "./score.js";
 import {
   loadSounds,
@@ -34,11 +35,12 @@ let timerId;
 export async function init() {
   await loadSounds();
   setStartBtnListner(true);
-  generateBoard();
+  generateBoards();
   createTetrimino();
   setNextMino();
   setCurrMino();
   setNextMino();
+  drawNextMino(nextMino);
 }
 
 export async function startGame() {
@@ -59,9 +61,7 @@ export async function startGame() {
   startTimer();
 
   // 次のミノを生成し、表示
-  const nextMino = createTetrimino();
-  setNextMino(nextMino);
-  drawNextMino(nextMino);
+  // const nextMino = createTetrimino();
 }
 
 function startTimer() {

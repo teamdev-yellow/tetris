@@ -1,3 +1,6 @@
+import { nextBlocks } from "./playground.js";
+import { tetriminoes, currMino } from "./tetrimino.js";
+
 const mainMenu = document.getElementById("main-menu");
 const gameScreen = document.getElementById("game-screen");
 const gameOverScreen = document.getElementById("game-over");
@@ -26,22 +29,19 @@ export function showGameOverScreen(score, level) {
 }
 
 export function drawNextMino(nextMino) {
-  const nextBlocksContainer = document.getElementById("next-blocks-container");
-
   // 次のミノの表示をクリア
-  nextBlocksContainer.innerHTML = ""; // 以前のブロックをクリア
+  currMino.shape.forEach(index => {
+    if(index > 3) index -= 6;
+    if (currMino.name == "o") index += 1;
+    index += 4;
+    nextBlocks[index].classList.remove(currMino.name);
+  });
 
-  // 次のミノの形を描画
-  nextMino.shape.forEach((row, y) => {
-    row.forEach((cell, x) => {
-      if (cell) {
-        // セルが filled されている場合
-        const nextBlock = document.createElement("div");
-        nextBlock.classList.add("next-block", nextMino.type); // 型に応じたクラスを追加
-        nextBlock.style.gridRowStart = y + 1; // 行位置
-        nextBlock.style.gridColumnStart = x + 1; // 列位置
-        nextBlocksContainer.appendChild(nextBlock);
-      }
-    });
+  nextMino.shape.forEach(index => {
+    if(index > 3) index -= 6;
+    if (nextMino.name == "o") index += 1;
+    index += 4;
+    nextBlocks[index].classList.add(nextMino.name);
   });
 }
+
