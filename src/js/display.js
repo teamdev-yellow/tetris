@@ -24,3 +24,24 @@ export function showGameOverScreen(score, level) {
   document.getElementById("final-score").innerText = score;
   document.getElementById("final-level").innerText = level;
 }
+
+export function drawNextMino(nextMino) {
+  const nextBlocksContainer = document.getElementById("next-blocks-container");
+
+  // 次のミノの表示をクリア
+  nextBlocksContainer.innerHTML = ""; // 以前のブロックをクリア
+
+  // 次のミノの形を描画
+  nextMino.shape.forEach((row, y) => {
+    row.forEach((cell, x) => {
+      if (cell) {
+        // セルが filled されている場合
+        const nextBlock = document.createElement("div");
+        nextBlock.classList.add("next-block", nextMino.type); // 型に応じたクラスを追加
+        nextBlock.style.gridRowStart = y + 1; // 行位置
+        nextBlock.style.gridColumnStart = x + 1; // 列位置
+        nextBlocksContainer.appendChild(nextBlock);
+      }
+    });
+  });
+}
